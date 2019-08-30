@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="stylesheets/css.css">
+    <title>計算機</title>
+
+</head>
+<div class="main">
+    <form name="myForm">
+        <input type="text" name="textview" id="textview" class="textview" disabled>
+    </form>
+    <table>
+        <tr>
+
+            <td colspan="3"><input type="button" style="width: 232px" class="button gray symbol" value="⌫"></td>
+            <td><input type="button" class="button or symbol" value="/"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="button gray number" value="7"></td>
+            <td><input type="button" class="button gray number " value="8"></td>
+            <td><input type="button" class="button gray number" value="9"></td>
+            <td><input type="button" class="button or symbol" value="*"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="button gray number" value="4"></td>
+            <td><input type="button" class="button gray number" value="5"></td>
+            <td><input type="button" class="button gray number" value="6"></td>
+            <td><input type="button" class="button or symbol" value="-"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="button gray number" value="1"></td>
+            <td><input type="button" class="button gray number" value="2"></td>
+            <td><input type="button" class="button gray number" value="3"></td>
+            <td><input type="button" class="button or symbol" value="+"></td>
+        </tr>
+        <tr>
+            <td><input type="button" class="button gray number" value="C"></td>
+            <td><input type="button" class="button gray number" value="0"></td>
+            <td><input type="button" class="button gray number" value="."></td>
+            <td><input type="button" class="button or symbol" value="="></td>
+        </tr>
+    </table>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+<script>
+    var exp = "", number, decimal, operator, equel;
+    var textview = document.getElementById("textview");
+    var functionsArr = ['.', '=', ['+', '-', '*', '/'], 'C', '⌫']
+    var status = false;
+
+
+    $('.button').on("click", function () {
+        //alert(functionsArr.indexOf(this.value));
+        var btnValue = this.value;
+        var index = functionsArr.indexOf(btnValue);
+        switch (index) {
+            case 0:
+                insertDec();
+                break;
+
+            case 1:
+                equelTo();
+                break;
+
+            case 3:
+                clean();
+                break;
+
+            case 4:
+                back();
+                break;
+
+            case -1:
+                if (functionsArr[2].indexOf(btnValue) == -1) {
+                    insertNum(btnValue);
+                }
+                else {
+                    insertOp(btnValue);
+                }
+                break;
+
+        }
+        // switch(this.value){
+        //     case ".":
+        //     insertDec();
+        //     break;
+
+        //     case "=":
+        //     equelTo();
+        //     break;
+
+        //     case "+":
+        //     insertOp('+');
+        //     break;
+
+        //     case "C":
+        //     clean();
+        //     break;
+
+        //     case "*":
+        //     insertOp('*');
+        //     break;
+
+        //     case "⌫":
+        //         back();
+        //         break;
+
+        //     case "/":
+        //     insertOp('/');
+        //     break;
+
+        //     case "-" :
+        //     insertOp('-');
+        //     break;
+
+        //     default:
+        //     insertNum(this.value);
+        //     break;
+        // }
+
+    })
+
+    function insertNum(num) {
+
+        if(textview.value=='0'){
+            exp = num;
+            textview.value = exp;
+            number = true;
+
+        }else{
+            exp = textview.value + num;
+            textview.value = exp;
+            number = true;
+
+        }
+        
+         //if(operator)  decimal = false; //0.2+0.2
+        
+    }
+
+
+    function insertOp(op) {
+
+        if (textview.value.length >= 1) {
+            textview.value = exp + op;
+            operator = true;
+            status = true;
+        }
+
+
+    }
+
+    function insertDec() {
+
+        if (number && !decimal) {
+            textview.value = exp + '.';
+            decimal = true;
+            operator = false;
+            
+        }
+    }
+
+    function equelTo() {
+
+        if (exp) {
+            status = true;
+            exp = eval(exp);
+            textview.value = exp;
+
+        }
+
+    }
+
+    function clean() {
+        exp = "";
+        textview.value = exp;
+        decimal = false;
+        status = false;
+
+    }
+
+    function back() {
+
+        if (status == 'false') {
+            if (textview.value.length == 1) {
+                textview.value = "0";
+                exp=0;
+                decimal = false;
+            }
+            else {
+                exp = textview.value;
+                exp = exp.substring(0, exp.length - 1);
+                textview.value = exp;
+            }
+
+        }
+
+
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+
+.button{
+    width: 75px;
+    height: 50px;
+    font-size: 25px;
+    margin: 2px;
+    border: 1px solid;
+    cursor: pointer;
+}
+
+.textview{
+    width: 305px;
+    margin: 5px;
+    font-size: 25px;
+    padding: 5px;
+    border: 2px solid;
+    background-color: transparent;
+    text-align: right;
+}
+
+.main{
+    width: 327px;
+    height: 350px;
+    background-color: #efecec;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid gray;
+    transform: translateX(-50%)translateY(-50%);
+    text-align: center;
+}
+
+.number{
+    background-color: white;
+    font-weight: bold;
+}
+
+.symbol{
+    background-color: #fbfbfb;
+}
+
+.gray:hover{
+    background-color: #e0e0e0;
+}
+
+.or:hover{
+    background-color: #f48403ce;
+}
